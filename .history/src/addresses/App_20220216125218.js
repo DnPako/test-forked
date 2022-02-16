@@ -19,12 +19,11 @@ const App = () => {
     setLoader(true);
     try {
       const { data: { features, }, } = await getAddresses(searchValue);
-      setAddressList(features);
-    } catch (error) {
-      setAddressList([]);
-      console.log("Handling error here");
-    } finally {
+      console.log(features);
       setLoader(false);
+    } catch (error) {
+      setLoader(false);
+      console.log("Handling error here");
     }
   }
 

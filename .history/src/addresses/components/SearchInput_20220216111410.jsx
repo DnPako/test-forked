@@ -1,3 +1,5 @@
+import { useState, } from "react";
+
 const containerStyle = {
     display: "flex",
 }
@@ -18,8 +20,14 @@ const inputStyle = {
 };
 
 const SearchInput = (props) => {
-    const { searchValue, handleChange, } = props;
+    const { handleGetAddresses, } = props;
+    const [searchValue, setSearchValue] = useState('');
 
+    const handleChange = ({ target: { value, }, }) => {
+        setSearchValue(value);
+        handleGetAddresses(value);
+    }
+    
     return (
         <div style={{ ...containerStyle, }}>
             <label htmlFor="search" style={{ ...labelStyle, }}>

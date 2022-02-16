@@ -7,33 +7,30 @@ import { getAddresses, } from "./services/addressesServices";
 const App = () => {
   const [addressList, setAddressList] = useState([]);
   const [loader, setLoader] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
 
-
-  const handleChange = ({ target: { value, }, }) => {
-    setSearchValue(value);
-    handleGetAddresses(value);
-}
 
   const handleGetAddresses = async (searchValue) => {
     setLoader(true);
     try {
       const { data: { features, }, } = await getAddresses(searchValue);
-      setAddressList(features);
-    } catch (error) {
-      setAddressList([]);
-      console.log("Handling error here");
-    } finally {
+      console.log(features);
       setLoader(false);
+    } catch (error) {
+      setLoader(false);
+      console.log("Handling error here");
     }
+  }
+
+  if (loader) {
+    return (<h4>Loading...</h4>);
   }
 
   return (
     <div className="App">
-      <SearchInput searchValue={searchValue} handleChange={handleChange}/>
+      <SearchInput handleGetAddresses={handleGetAddresses}/>
       <h1>Addresse list</h1>
       <ul>
-        <Address loader={loader} addressList={addressList} />
+        <Address addressList={addressList} />
       </ul>
     </div>
   );

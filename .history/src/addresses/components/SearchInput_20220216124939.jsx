@@ -1,3 +1,5 @@
+import { useState, } from "react";
+
 const containerStyle = {
     display: "flex",
 }
@@ -18,7 +20,7 @@ const inputStyle = {
 };
 
 const SearchInput = (props) => {
-    const { searchValue, handleChange, } = props;
+    const { handleChange, } = props;
 
     return (
         <div style={{ ...containerStyle, }}>

@@ -19,13 +19,16 @@ const App = () => {
     setLoader(true);
     try {
       const { data: { features, }, } = await getAddresses(searchValue);
-      setAddressList(features);
-    } catch (error) {
-      setAddressList([]);
-      console.log("Handling error here");
-    } finally {
+      console.log(features);
       setLoader(false);
+    } catch (error) {
+      setLoader(false);
+      console.log("Handling error here");
     }
+  }
+
+  if (loader) {
+    return (<h4>Loading...</h4>);
   }
 
   return (
@@ -33,7 +36,7 @@ const App = () => {
       <SearchInput searchValue={searchValue} handleChange={handleChange}/>
       <h1>Addresse list</h1>
       <ul>
-        <Address loader={loader} addressList={addressList} />
+        <Address addressList={addressList} />
       </ul>
     </div>
   );
